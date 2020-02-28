@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700');
+
+body {
+  font-family: 'Josefin Sans';
+  background-color: #107A8B;
+  color: white;
+}
+header {
+  background-color: #156471;
+  display: flex;
+}
+.mainicon {
+display: flex;
+width: 40px;
+}
