@@ -13,3 +13,9 @@ header {
 display: flex;
 width: 40px;
 }
+.pokeList {
+  display: flex;
+  justify-content: space-around;
+  background-color: #3B5441;
+  border-radius: 20px;
+}
