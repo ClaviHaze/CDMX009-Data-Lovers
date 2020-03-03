@@ -5,17 +5,44 @@ body {
   background-color: #107A8B;
   color: white;
 }
-header {
+.main {
   background-color: #156471;
   display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  cursor: pointer;
 }
 .mainicon {
-display: flex;
-width: 40px;
+  display: flex;
+  width: 40px;
+  margin-right: 10px;
+}
+.filterIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.filterName{
+  margin-top: 10px;
+  text-align-last: center;
+}
+.filterBar {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
 }
 .pokeList {
   display: flex;
   justify-content: space-around;
   background-color: #3B5441;
   border-radius: 20px;
+}
+.pokeListTable {
+  border-width: thick;
+  border-color: #27372A;
+}
+.filterBtn {
+  display: flex;
+  width: 70px;
 }

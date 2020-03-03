@@ -10,13 +10,33 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <img src="images\pokeicon.svg" class="mainicon"/>
+    <header class="main" id="home">
+      <img src="images/pokeicon.svg" class="mainicon"/>
       <h1>PokeGo Space</h1>
     </header>
     </br>
+    <nav class="filterBar">
+      <figure class="filterIcon" id="allPoke">
+        <img src="images/allPoke.svg" class="filterBtn"/>
+        <figcaption class="filterName">Todos</figcaption>
+      </figure>
+      <figure class="filterIcon" id="topSpawn">
+        <img src="images/topSpawn.svg" class="filterBtn"/>
+        <figcaption class="filterName">Top 10 <br> Mayor Aparición</figcaption>
+      </figure>
+      <figure class="filterIcon" id="pokeType">
+        <img src="images/typeButton.svg" class="filterBtn"/>
+        <figcaption class="filterName">Tipo</figcaption>
+      </figure>
+      <figure class="filterIcon" id="eggKm">
+        <img src="images/eggButton.svg" class="filterBtn"/>
+        <figcaption class="filterName">Huevo</figcaption>
+      </figure>
+    </nav>
+    </br>
     <section class="pokeList">
-      <table id="pokeList"></table>
+      <p id="poke"></p>
+      <table class="pokeListTable" id="pokeList"></table>
     </section>
     <script type="module" src="main.js"></script>
   </body>

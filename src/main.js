@@ -1,16 +1,26 @@
-import { example } from './data.js';
+document.getElementById('allPoke').addEventListener('click', showAll);
+function showAll() {
+  console.log("Mostrar Todos");
+}
 
-console.log(example);
+document.getElementById('topSpawn').addEventListener('click', showTopSpawns);
+function showTopSpawns() {
+  console.log("Top 10");
+}
 
-/*let testarray = ["Bulbasaur", "Ivysaur", "Venasaur",
-"Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise"]
-let tr;
-testarray.forEach((pokemon, i) => {
-  let td = document.createElement("td");
-  if (!(i % 3)) {
-    tr = document.createElement("tr");
-    document.getElementById("pokeList").appendChild(tr);
-  }
-  td.appendChild(document.createTextNode(pokemon));
-  tr.appendChild(td);
-});*/
+document.getElementById('pokeType').addEventListener('click', showByType);
+function showByType() {
+  console.log("Por Tipo");
+}
+
+document.getElementById('eggKm').addEventListener('click', showByEgg);
+function showByEgg() {
+  console.log("Por Huevo");
+}
+
+document.getElementById('home').addEventListener('click', restart);
+function restart() {
+  console.log("Pantalla Principal");
+}
+
+document.getElementById("poke").innerHTML("Pokemon 1")
