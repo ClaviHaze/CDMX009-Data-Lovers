@@ -1,3 +1,5 @@
+//AQUÍ VA LA MANIPULACIÓN DEL DOM
+
 document.getElementById('allPoke').addEventListener('click', showAll);
 function showAll() {
   console.log("Mostrar Todos");
