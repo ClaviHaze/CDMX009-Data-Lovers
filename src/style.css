@@ -17,13 +17,13 @@ body {
   width: 40px;
   margin-right: 10px;
 }
-.filterIcon {
+.icon {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
 }
-.filterName{
+.subtitle{
   margin-top: 10px;
   text-align-last: center;
 }
@@ -32,11 +32,30 @@ body {
   flex-flow: wrap;
   justify-content: space-evenly;
 }
+.list {
+  display: none;
+  flex-flow: wrap;
+  justify-content: space-around;
+  background-color: #3B5441;
+  border-radius: 20px;
+  border: solid;
+  border-color: #304535;
+}
+.listBtn {
+  margin: 0.1em;
+  cursor: pointer;
+}
+.eggBtn {
+  cursor: pointer;
+  width: 50%;
+}
 .pokeList {
   display: flex;
   justify-content: space-around;
   background-color: #3B5441;
   border-radius: 20px;
+  border: solid;
+  border-color: #304535;
 }
 .pokeListTable {
   border-width: thick;
