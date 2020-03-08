@@ -5,6 +5,19 @@ body {
   background-color: #107A8B;
   color: white;
 }
+.pokeBtn {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0.3em;
+  cursor: pointer;
+  background-color: #3B5441;
+  border-radius: 20px;
+  border: solid;
+  border-color: #304535;
+}
 .main {
   background-color: #156471;
   display: flex;
@@ -47,21 +60,27 @@ body {
 }
 .eggBtn {
   cursor: pointer;
+  margin-top: 10%;
   width: 50%;
 }
 .pokeList {
   display: flex;
-  justify-content: space-around;
-  background-color: #3B5441;
-  border-radius: 20px;
-  border: solid;
-  border-color: #304535;
+  flex-flow: wrap;
+  justify-content: center;
 }
-.pokeListTable {
-  border-width: thick;
+.pokeImg {
+  border: solid;
   border-color: #27372A;
+  background-color: #585B59;
+  margin: 1em;
 }
 .filterBtn {
   display: flex;
   width: 70px;
+}
+.attribution {
+  color: lightgray;
+}
+.highlight {
+  background-color: #5c8265;
 }
