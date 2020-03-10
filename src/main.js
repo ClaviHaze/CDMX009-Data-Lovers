@@ -69,6 +69,7 @@ let highlight = (node) => {
   selected = node;
   selected.classList.add('highlight');
 }
+
 document.getElementById('pokeList').addEventListener('click', tableFunction);
 let restart = () => {
   document.getElementById('egg').style.display = 'none';
