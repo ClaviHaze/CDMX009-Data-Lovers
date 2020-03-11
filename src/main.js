@@ -1,41 +1,28 @@
 //AQUÍ VA LA MANIPULACIÓN DEL DOM
 import icons from './icons.js'
-import {example} from './data.js'
+import {example, filter} from './data.js'
+console.log(filter);
+console.log(example);
 
-let selected;
 const navTypes = document.querySelector('#types');
 const navEggs = document.querySelector('#egg');
-const listSection = document.querySelector('#pokeList');
-const table = document.querySelector('#pokeList');
 
-let showAll = () => {
+let showAll = (example) => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
-/*  for (const pokemon of data.pokemon) {
-      const card = document.createElement('td');
-      const pokepic = document.createElement('img');
-      const idname = document.createElement('p');
-      const type = document.createElement('img');
-      pokepic.src = pokemon.img;
-      idname.innerHTML = '#' + pokemon.id + ' ' + pokemon.name;
-      listSection.appendChild(card);
-      card.appendChild(pokepic);
-      card.appendChild(idname);
-      card.appendChild(type);
-      card.setAttribute("id", pokemon.name);
-      card.setAttribute("class", "pokeBtn");
-      pokepic.setAttribute("class", "pokeImg");
-      type.setAttribute("id", pokemon.type);
-  }*/
 }
 document.getElementById('allPoke').addEventListener('click', showAll);
 
+const pokeTable = document.querySelector('#pokeList');
+const typeTable = document.querySelector('#type');
+const eggTable = document.querySelector('#egg');
+let selected;
 let tableFunction = (event) => {
   let item = event.target.closest('td');
-  let chosenPoke = item.id;
-  console.log(chosenPoke);
+  let chosenItem = item.id;
+  console.log(chosenItem);
   if (!item) return;
-  if (!table.contains(item)) return;
+  if (!pokeTable.contains(item)) return;
   highlight(item);
 };
 let highlight = (node) => {
@@ -45,6 +32,9 @@ let highlight = (node) => {
   selected = node;
   selected.classList.add('highlight');
 }
+document.getElementById('pokeList').addEventListener('click', tableFunction);
+document.getElementById('types').addEventListener('click', tableFunction);
+document.getElementById('egg').addEventListener('click', tableFunction);
 
 let showTopSpawns = () => {
   document.getElementById('egg').style.display = 'none';
@@ -57,11 +47,13 @@ let showTypeList = () => {
   document.getElementById('types').style.display = 'flex';
   navTypes.textContent = '';
   for (let i=0; i < icons.types.length; i++) {
-    const typeIcon = document.createElement('img');
-    typeIcon.src = icons.types[i];
-    typeIcon.setAttribute('id', icons.typeName[i]);
-    typeIcon.setAttribute('class', 'listBtn');
-    navTypes.appendChild(typeIcon);
+    const typeImg = document.createElement('img');
+    const typeBtn = document.createElement('td');
+    typeImg.src = icons.types[i];
+    typeBtn.setAttribute('id', icons.typeName[i]);
+    typeBtn.setAttribute('class', 'listBtn');
+    typeBtn.appendChild(typeImg);
+    navTypes.appendChild(typeBtn);
   }
 }
 document.getElementById('pokeType').addEventListener('click', showTypeList);
@@ -71,7 +63,7 @@ let showEggList = () => {
   document.getElementById('types').style.display = 'none';
   navEggs.textContent = '';
   for (let i=0; i < icons.eggs.length; i++) {
-    const eggBtn = document.createElement('a');
+    const eggBtn = document.createElement('td');
     const eggIcon = document.createElement('img');
     const eggText = document.createElement('p');
     eggBtn.appendChild(eggIcon);
@@ -87,7 +79,6 @@ let showEggList = () => {
 }
 document.getElementById('eggKm').addEventListener('click', showEggList);
 
-document.getElementById('pokeList').addEventListener('click', tableFunction);
 let restart = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
