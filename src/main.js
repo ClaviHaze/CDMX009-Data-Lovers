@@ -2,14 +2,49 @@
 import icons from './icons.js'
 import {example} from './data.js'
 
+let selected;
 const navTypes = document.querySelector('#types');
 const navEggs = document.querySelector('#egg');
+const listSection = document.querySelector('#pokeList');
+const table = document.querySelector('#pokeList');
 
-let showAll = (example) => {
+let showAll = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
+/*  for (const pokemon of data.pokemon) {
+      const card = document.createElement('td');
+      const pokepic = document.createElement('img');
+      const idname = document.createElement('p');
+      const type = document.createElement('img');
+      pokepic.src = pokemon.img;
+      idname.innerHTML = '#' + pokemon.id + ' ' + pokemon.name;
+      listSection.appendChild(card);
+      card.appendChild(pokepic);
+      card.appendChild(idname);
+      card.appendChild(type);
+      card.setAttribute("id", pokemon.name);
+      card.setAttribute("class", "pokeBtn");
+      pokepic.setAttribute("class", "pokeImg");
+      type.setAttribute("id", pokemon.type);
+  }*/
 }
 document.getElementById('allPoke').addEventListener('click', showAll);
+
+let tableFunction = (event) => {
+  let item = event.target.closest('td');
+  let chosenPoke = item.id;
+  console.log(chosenPoke);
+  if (!item) return;
+  if (!table.contains(item)) return;
+  highlight(item);
+};
+let highlight = (node) => {
+  if (selected) {
+    selected.classList.remove('highlight');
+  }
+  selected = node;
+  selected.classList.add('highlight');
+}
 
 let showTopSpawns = () => {
   document.getElementById('egg').style.display = 'none';
@@ -51,24 +86,6 @@ let showEggList = () => {
   }
 }
 document.getElementById('eggKm').addEventListener('click', showEggList);
-
-const table = document.querySelector('#pokeList');
-let selected;
-let tableFunction = (event) => {
-  let item = event.target.closest('td');
-  let chosenPoke = item.id;
-  console.log(chosenPoke);
-  if (!item) return;
-  if (!table.contains(item)) return;
-  highlight(item);
-};
-let highlight = (node) => {
-  if (selected) {
-    selected.classList.remove('highlight');
-  }
-  selected = node;
-  selected.classList.add('highlight');
-}
 
 document.getElementById('pokeList').addEventListener('click', tableFunction);
 let restart = () => {
