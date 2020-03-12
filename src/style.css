@@ -23,7 +23,6 @@ body {
   display: flex;
   flex-flow: wrap;
   justify-content: center;
-  cursor: pointer;
 }
 .mainicon {
   display: flex;
