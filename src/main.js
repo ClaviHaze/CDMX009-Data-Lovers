@@ -1,9 +1,16 @@
 import icons from './icons.js';
 
-import { filter, filterTwo } from './data.js';
+import { filter, filterTwo, pokemons } from './data.js';
 
-console.log(filter);
-console.log(filterTwo);
+function filterByType(tipo){
+  console.log(tipo)
+  let filtered = pokemons.filter(poke=>poke.type.includes(tipo))
+  return filtered
+}
+
+function drawPokes(list){
+
+}
 
 const showAll = () => {
   document.getElementById('egg').style.display = 'none';
@@ -17,6 +24,12 @@ const tableFunction = (event) => {
   const item = event.target.closest('td');
   const chosenItem = item.id;
   console.log(chosenItem);
+// 2.- como los filtro
+let filtered = filterByType(chosenItem)
+// 3.- como los dibujamos
+console.log(filtered)
+//drawPokes(filtered)
+
   const highlight = (node) => {
     if (selected) {
       selected.classList.remove('highlight');
@@ -27,6 +40,8 @@ const tableFunction = (event) => {
   if (!item) return;
   if (!pokeTable.contains(item)) return;
   highlight(item);
+
+
 };
 
 document.getElementById('pokeList').addEventListener('click', tableFunction);

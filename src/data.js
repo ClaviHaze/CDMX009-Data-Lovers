@@ -1,5 +1,7 @@
 const fetchURL = 'https://raw.githubusercontent.com/ClaviHaze/CDMX009-Data-Lovers/master/src/data/pokemon/pokemon.json';
 
+export let pokemons
+
 export const filter = (data) => {
   const listSection = document.querySelector('#pokeList');
   for (const pokemons of data.pokemon) {
@@ -32,6 +34,8 @@ fetch(fetchURL)
   .then(data => {
     filter(data)
     filterTwo(data)
+    // colocamos los pokes en la v global
+    pokemons=data.pokemon
   })
   .catch(error => {
     console.error(error);
