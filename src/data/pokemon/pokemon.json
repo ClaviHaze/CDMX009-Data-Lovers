@@ -1121,7 +1121,7 @@
     "name": "Wigglytuff",
     "img": "https://www.serebii.net/pokemongo/pokemon/040.png",
     "type": [
-      "Normal"
+      "Normal",
       "Fairy"
     ],
     "height": "0.99 m",
@@ -3367,7 +3367,7 @@
     "name": "Mr. Mime",
     "img": "https://www.serebii.net/pokemongo/pokemon/122.png",
     "type": [
-      "Psychic"
+      "Psychic",
       "Fairy"
     ],
     "height": "1.30 m",
