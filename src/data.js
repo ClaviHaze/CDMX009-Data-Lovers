@@ -7,6 +7,11 @@ export const filterByType = (type) => {
   return byType;
 }
 
+export const filterByEgg = (egg) => {
+  let byEgg = pokemons.filter(poke => poke.egg.includes(egg));
+  return byEgg;
+}
+
 fetch(fetchURL)
   .then(response => {
     if (!response.ok) {

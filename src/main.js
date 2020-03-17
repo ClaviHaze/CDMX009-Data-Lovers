@@ -1,9 +1,10 @@
 import icons from './icons.js';
 
-import { pokemons, filterByType } from './data.js';
+import { pokemons, filterByType, filterByEgg } from './data.js';
 
+const listSection = document.querySelector('#pokeList');
+const introText = document.querySelector('#introText');
 function drawPokes(list){
-  const listSection = document.querySelector('#pokeList');
   listSection.textContent = '';
   for (const pokemon of list) {
       const card = document.createElement('td');
@@ -23,14 +24,24 @@ function drawPokes(list){
   }
 }
 
-
-
 const pokeTable = document.querySelector('#pokeList');
 let selected;
 const tableFunction = (event) => {
   const item = event.target.closest('td');
   const chosenItem = item.id;
-  if (icons.typeName.includes(chosenItem)){
+  introText.style.display = 'none';
+  if (chosenItem == "Dark") {
+    listSection.textContent = '';
+    const notice = document.createElement('h1');
+    notice.setAttribute("class", "text");
+    notice.textContent = "No hay Pokemón del tipo Siniestro en la región de Kanto :(";
+    listSection.appendChild(notice);
+  }
+  else if (icons.eggKm.includes(chosenItem)) {
+    let filtered = filterByEgg(chosenItem);
+    let print = drawPokes(filtered);
+  }
+  else if (icons.typeName.includes(chosenItem)) {
     let filtered = filterByType(chosenItem);
     let print = drawPokes(filtered);
   }
@@ -56,6 +67,7 @@ document.getElementById('egg').addEventListener('click', tableFunction);
 const showAll = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
+  introText.style.display = 'none';
   let print = drawPokes(pokemons);
 };
 document.getElementById('allPoke').addEventListener('click', showAll);
@@ -63,12 +75,14 @@ document.getElementById('allPoke').addEventListener('click', showAll);
 const showTopSpawns = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
+  introText.style.display = 'none';
 };
 document.getElementById('topSpawn').addEventListener('click', showTopSpawns);
 
 const navTypes = document.querySelector('#types');
 const navEggs = document.querySelector('#egg');
 const showTypeList = () => {
+  introText.style.display = 'none';
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'flex';
   navTypes.textContent = '';
@@ -85,6 +99,7 @@ const showTypeList = () => {
 document.getElementById('pokeType').addEventListener('click', showTypeList);
 
 const showEggList = () => {
+  introText.style.display = 'none';
   document.getElementById('egg').style.display = 'flex';
   document.getElementById('types').style.display = 'none';
   navEggs.textContent = '';
@@ -104,3 +119,20 @@ const showEggList = () => {
   }
 };
 document.getElementById('eggKm').addEventListener('click', showEggList);
+
+const topBtn = document.querySelector("#backTop");
+topBtn.addEventListener('click', top);
+window.onscroll = function() {
+  scroll()
+};
+function scroll() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    topBtn.style.display = "block";
+  } else {
+    topBtn.style.display = "none";
+  }
+};
+function top() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
