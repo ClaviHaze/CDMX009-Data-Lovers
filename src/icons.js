@@ -25,7 +25,7 @@ const icons = {
     'Dragon',
     'Electric',
     'Fairy',
-    'Fight',
+    'Fighting',
     'Fire',
     'Flying',
     'Ghost',
@@ -45,9 +45,9 @@ const icons = {
     'images/egg10km.svg',
   ],
   eggKm: [
-    '2',
-    '5',
-    '10'
+    '2 km',
+    '5 km',
+    '10 km'
   ]
 };
 export default icons;
