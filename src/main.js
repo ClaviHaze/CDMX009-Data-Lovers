@@ -10,17 +10,23 @@ function drawPokes(list){
     const card = document.createElement('td');
     const pokepic = document.createElement('img');
     const idname = document.createElement('p');
-    const type = document.createElement('img');
+    pokemon.type.forEach(element => {
+      const type = document.createElement('img');
+      type.setAttribute('id', element);
+      type.setAttribute('class', pokeType);
+      const typeSrc = icons.typeSrc.find(srcType => srcType.name === element);
+      type.src = typeSrc.imgSrc;
+      card.appendChild(type);
+    });
     pokepic.src = pokemon.img;
     idname.innerHTML = '#' + pokemon.id + ' ' + pokemon.name;
     listSection.appendChild(card);
     card.appendChild(pokepic);
     card.appendChild(idname);
-    card.appendChild(type);
+
     card.setAttribute('id', pokemon.name);
     card.setAttribute('class', 'pokeBtn');
     pokepic.setAttribute('class', 'pokeImg');
-    type.setAttribute('id', pokemon.type);
   }
 };
 const pokeTable = document.querySelector('#pokeList');
@@ -74,8 +80,8 @@ const showTopSpawns = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
   introText.style.display = 'none';
-  const pipo = topSpawns();
-  let print = drawPokes(pipo);
+  const showTopTen = topSpawns();
+  let print = drawPokes(showTopTen);
 };
 document.getElementById('topSpawn').addEventListener('click', showTopSpawns);
 

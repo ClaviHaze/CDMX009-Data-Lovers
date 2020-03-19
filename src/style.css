@@ -92,6 +92,9 @@ body {
   background-color: #585B59;
   margin: 1em;
 }
+.pokeType{
+  
+}
 .filterBtn {
   display: flex;
   width: 70px;

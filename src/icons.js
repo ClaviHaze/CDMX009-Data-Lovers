@@ -19,6 +19,26 @@ const icons = {
     'images/Tag-Steel.svg',
     'images/Tag-Water.svg'
   ],
+  typeSrc: [
+    {name: 'Bug', imgSrc: 'images/Tag-Bug.svg'},
+    {name: 'Dark', imgSrc:'images/Tag-Dark.svg'},
+    {name: 'Dragon', imgSrc: 'images/Tag-Dragon.svg'},
+    {name: 'Electric', imgSrc: 'images/Tag-Electric.svg'},
+    {name: 'Fairy', imgSrc: 'images/Tag-Fairy.svg'},
+    {name: 'Fighting', imgSrc: 'images/Tag-Fighting.svg'},
+    {name: 'Fire', imgSrc: 'images/Tag-Fire.svg'},
+    {name: 'Flying', imgSrc: 'images/Tag-Flying.svg'},
+    {name: 'Ghost', imgSrc: 'images/Tag-Ghost.svg'},
+    {name: 'Grass', imgSrc: 'images/Tag-Grass.svg'},
+    {name: 'Ground', imgSrc: 'images/Tag-Ground.svg'},
+    {name: 'Ice', imgSrc: 'images/Tag-Ice.svg'},
+    {name: 'Normal', imgSrc: 'images/Tag-Normal.svg'},
+    {name: 'Poison', imgSrc: 'images/Tag-Poison.svg'},
+    {name: 'Psychic', imgSrc: 'images/Tag-Psychic.svg'},
+    {name: 'Rock', imgSrc: 'images/Tag-Rock.svg'},
+    {name: 'Steel', imgSrc: 'images/Tag-Steel.svg'},
+    {name: 'Water', imgSrc: 'images/Tag-Water.svg'},
+  ],
   typeName: [
     'Bug',
     'Dark',
@@ -47,7 +67,7 @@ const icons = {
   eggKm: [
     '2 km',
     '5 km',
-    '10 km'
+    '10 km',
   ]
 };
 export default icons;
