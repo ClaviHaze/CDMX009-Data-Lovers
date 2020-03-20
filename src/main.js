@@ -1,56 +1,55 @@
 import icons from './icons.js';
 
-import { pokemons, filterByType, filterByEgg, topSpawns } from './data.js';
+import {
+  pokemons, filterByType, filterByEgg, topSpawns,
+} from './data.js';
 
+let print;
 const listSection = document.querySelector('#pokeList');
 const introText = document.querySelector('#introText');
-function drawPokes(list){
+function drawPokes(list) {
   listSection.textContent = '';
   for (const pokemon of list) {
     const card = document.createElement('td');
     const pokepic = document.createElement('img');
     const idname = document.createElement('p');
-    pokemon.type.forEach(element => {
-      const type = document.createElement('img');
-      type.setAttribute('id', element);
-      type.setAttribute('class', pokeType);
-      const typeSrc = icons.typeSrc.find(srcType => srcType.name === element);
-      type.src = typeSrc.imgSrc;
-      card.appendChild(type);
-    });
     pokepic.src = pokemon.img;
-    idname.innerHTML = '#' + pokemon.id + ' ' + pokemon.name;
+    idname.innerHTML = `#${pokemon.id} ${pokemon.name}`;
     listSection.appendChild(card);
     card.appendChild(pokepic);
     card.appendChild(idname);
-
     card.setAttribute('id', pokemon.name);
     card.setAttribute('class', 'pokeBtn');
     pokepic.setAttribute('class', 'pokeImg');
+    pokemon.type.forEach((element) => {
+      const type = document.createElement('img');
+      type.setAttribute('id', element);
+      type.setAttribute('class', 'pokeType');
+      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
+      type.src = typeSrc.imgSrc;
+      card.appendChild(type);
+    });
   }
-};
+}
 const pokeTable = document.querySelector('#pokeList');
 let selected;
 const tableFunction = (event) => {
   const item = event.target.closest('td');
   const chosenItem = item.id;
   introText.style.display = 'none';
-  if (chosenItem == 'Dark') {
+  if (chosenItem === 'Dark') {
     listSection.textContent = '';
     const notice = document.createElement('h1');
     notice.setAttribute('class', 'text');
     notice.textContent = 'No hay Pokemón del tipo Siniestro en la región de Kanto :(';
     listSection.appendChild(notice);
-  }
-  else if (icons.eggKm.includes(chosenItem)) {
-    let filtered = filterByEgg(chosenItem);
-    let print = drawPokes(filtered);
-  }
-  else if (icons.typeName.includes(chosenItem)) {
-    let filtered = filterByType(chosenItem);
-    let print = drawPokes(filtered);
-  }
-  else {
+  } else if (icons.eggKm.includes(chosenItem)) {
+    const filtered = filterByEgg(chosenItem);
+    print = drawPokes(filtered);
+  } else if (icons.typeName.includes(chosenItem)) {
+    const filtered = filterByType(chosenItem);
+    print = drawPokes(filtered);
+  } else {
     const highlight = (node) => {
       if (selected) {
         selected.classList.remove('highlight');
@@ -72,7 +71,7 @@ const showAll = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'none';
   introText.style.display = 'none';
-  let print = drawPokes(pokemons);
+  print = drawPokes(pokemons);
 };
 document.getElementById('allPoke').addEventListener('click', showAll);
 
@@ -81,7 +80,7 @@ const showTopSpawns = () => {
   document.getElementById('types').style.display = 'none';
   introText.style.display = 'none';
   const showTopTen = topSpawns();
-  let print = drawPokes(showTopTen);
+  print = drawPokes(showTopTen);
 };
 document.getElementById('topSpawn').addEventListener('click', showTopSpawns);
 
@@ -92,10 +91,10 @@ const showTypeList = () => {
   document.getElementById('egg').style.display = 'none';
   document.getElementById('types').style.display = 'flex';
   navTypes.textContent = '';
-  for (let i = 0; i < icons.types.length; i += 1) {
+  for (let i = 0; i < icons.typeName.length; i += 1) {
     const typeImg = document.createElement('img');
     const typeBtn = document.createElement('td');
-    typeImg.src = icons.types[i];
+    typeImg.src = icons.srcType[i];
     typeBtn.setAttribute('id', icons.typeName[i]);
     typeBtn.setAttribute('class', 'listBtn');
     typeBtn.appendChild(typeImg);
@@ -125,20 +124,19 @@ const showEggList = () => {
   }
 };
 document.getElementById('eggKm').addEventListener('click', showEggList);
-
-const topBtn = document.querySelector('#backTop');
-topBtn.addEventListener('click', top);
-window.onscroll = function() {
-  scroll()
-};
 function scroll() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     topBtn.style.display = 'block';
   } else {
     topBtn.style.display = 'none';
   }
-};
+}
 function top() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+}
+const topBtn = document.querySelector('#backTop');
+topBtn.addEventListener('click', top);
+window.onscroll = function () {
+  scroll();
 };
