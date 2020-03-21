@@ -1,15 +1,32 @@
 import icons from './icons.js';
 
-import {
-  pokemons, filterByType, filterByEgg, topSpawns,
-} from './data.js';
+import filters from './data.js';
 
 let print;
+let selected;
 const listSection = document.querySelector('#pokeList');
 const introText = document.querySelector('#introText');
-function drawPokes(list) {
+const navTypes = document.querySelector('#types');
+const navEggs = document.querySelector('#egg');
+const topBtn = document.querySelector('#backTop');
+const pokeType = document.querySelector('#pokeType');
+const pokeTable = document.querySelector('#pokeList');
+const topSpawn = document.querySelector('#topSpawn');
+const allPoke = document.querySelector('#allPoke');
+const eggKm = document.querySelector('#eggKm');
+const home = document.querySelector('#home');
+
+const backHome = () => {
   listSection.textContent = '';
-  for (const pokemon of list) {
+  introText.style.display = 'grid';
+  navTypes.style.display = 'none';
+  navEggs.style.display = 'none';
+};
+home.addEventListener('click', backHome);
+
+const drawPokes = (list) => {
+  listSection.textContent = '';
+  list.forEach((pokemon) => {
     const card = document.createElement('td');
     const pokepic = document.createElement('img');
     const idname = document.createElement('p');
@@ -29,25 +46,31 @@ function drawPokes(list) {
       type.src = typeSrc.imgSrc;
       card.appendChild(type);
     });
-  }
-}
-const pokeTable = document.querySelector('#pokeList');
-let selected;
+  });
+  pokeTable.scrollIntoView({
+    behavior: 'smooth', inline: 'end',
+  });
+};
+
 const tableFunction = (event) => {
   const item = event.target.closest('td');
+  if (!item) return;
   const chosenItem = item.id;
   introText.style.display = 'none';
   if (chosenItem === 'Dark') {
     listSection.textContent = '';
-    const notice = document.createElement('h1');
+    const notice = document.createElement('p');
     notice.setAttribute('class', 'text');
     notice.textContent = 'No hay Pokemón del tipo Siniestro en la región de Kanto :(';
+    pokeTable.scrollIntoView({
+      behavior: 'smooth', inline: 'end',
+    });
     listSection.appendChild(notice);
   } else if (icons.eggKm.includes(chosenItem)) {
-    const filtered = filterByEgg(chosenItem);
+    const filtered = filters.filterByEgg(chosenItem);
     print = drawPokes(filtered);
   } else if (icons.typeName.includes(chosenItem)) {
-    const filtered = filterByType(chosenItem);
+    const filtered = filters.filterByType(chosenItem);
     print = drawPokes(filtered);
   } else {
     const highlight = (node) => {
@@ -57,39 +80,41 @@ const tableFunction = (event) => {
       selected = node;
       selected.classList.add('highlight');
     };
-    if (!item) return;
     if (!pokeTable.contains(item)) return;
     highlight(item);
   }
 };
-
-document.getElementById('pokeList').addEventListener('click', tableFunction);
-document.getElementById('types').addEventListener('click', tableFunction);
-document.getElementById('egg').addEventListener('click', tableFunction);
+listSection.addEventListener('mouseover', tableFunction);
+navTypes.addEventListener('click', tableFunction);
+navEggs.addEventListener('click', tableFunction);
 
 const showAll = () => {
-  document.getElementById('egg').style.display = 'none';
-  document.getElementById('types').style.display = 'none';
   introText.style.display = 'none';
-  print = drawPokes(pokemons);
+  navTypes.style.display = 'none';
+  navEggs.style.display = 'none';
+  listSection.textContent = '';
+  const allPokemon = filters.show151();
+  print = drawPokes(allPokemon);
+  pokeTable.scrollIntoView({
+    behavior: 'smooth', inline: 'end',
+  });
 };
-document.getElementById('allPoke').addEventListener('click', showAll);
+allPoke.addEventListener('click', showAll);
 
 const showTopSpawns = () => {
-  document.getElementById('egg').style.display = 'none';
-  document.getElementById('types').style.display = 'none';
   introText.style.display = 'none';
-  const showTopTen = topSpawns();
+  navTypes.style.display = 'none';
+  navEggs.style.display = 'none';
+  const showTopTen = filters.topSpawns();
   print = drawPokes(showTopTen);
+  return print;
 };
-document.getElementById('topSpawn').addEventListener('click', showTopSpawns);
+topSpawn.addEventListener('click', showTopSpawns);
 
-const navTypes = document.querySelector('#types');
-const navEggs = document.querySelector('#egg');
 const showTypeList = () => {
   introText.style.display = 'none';
-  document.getElementById('egg').style.display = 'none';
-  document.getElementById('types').style.display = 'flex';
+  navTypes.style.display = 'flex';
+  navEggs.style.display = 'none';
   navTypes.textContent = '';
   for (let i = 0; i < icons.typeName.length; i += 1) {
     const typeImg = document.createElement('img');
@@ -100,13 +125,16 @@ const showTypeList = () => {
     typeBtn.appendChild(typeImg);
     navTypes.appendChild(typeBtn);
   }
+  navTypes.scrollIntoView({
+    behavior: 'smooth', inline: 'end',
+  });
 };
-document.getElementById('pokeType').addEventListener('click', showTypeList);
+pokeType.addEventListener('click', showTypeList);
 
 const showEggList = () => {
   introText.style.display = 'none';
-  document.getElementById('egg').style.display = 'flex';
-  document.getElementById('types').style.display = 'none';
+  navTypes.style.display = 'none';
+  navEggs.style.display = 'flex';
   navEggs.textContent = '';
   for (let i = 0; i < icons.eggs.length; i += 1) {
     const eggBtn = document.createElement('td');
@@ -123,20 +151,21 @@ const showEggList = () => {
     navEggs.appendChild(eggBtn);
   }
 };
-document.getElementById('eggKm').addEventListener('click', showEggList);
-function scroll() {
+eggKm.addEventListener('click', showEggList);
+
+const scroll = () => {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     topBtn.style.display = 'block';
   } else {
     topBtn.style.display = 'none';
   }
-}
-function top() {
+};
+const top = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
-}
-const topBtn = document.querySelector('#backTop');
+};
 topBtn.addEventListener('click', top);
-window.onscroll = function () {
+
+window.onscroll = () => {
   scroll();
 };

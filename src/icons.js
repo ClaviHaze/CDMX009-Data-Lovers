@@ -19,7 +19,7 @@ const icons = {
     'Steel',
     'Water',
   ],
-  srcType:[
+  srcType: [
     'images/Tag-Bug.svg',
     'images/Tag-Dark.svg',
     'images/Tag-Dragon.svg',
