@@ -88,12 +88,26 @@ footer {
   display: flex;
   flex-flow: wrap;
   justify-content: center;
+  
 }
 .pokeImg {
   background-color: #8ad72952;
   border-radius: 18px;
   margin: 1em;
+ /* transition: transform .2s;
+  transition: .4s;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;*/
 }
+
+/*.pokeImg:hover{
+  transform: scale(1.5)
+}
+
+.pokeImg:hover{
+  transform: rotateY(180deg);
+}*/
+
 .pokeType{
 margin: 0.3em
 }

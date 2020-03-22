@@ -30,7 +30,7 @@ const filters = {
     const spawnChance = spawnSort.slice(0, 10);
     return spawnChance;
   },
-  show151: () => {
+  unfiltered: () => {
     const pokeObject = pokemons;
     return pokeObject;
   },

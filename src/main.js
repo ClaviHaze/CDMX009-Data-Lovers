@@ -10,6 +10,7 @@ const navTypes = document.querySelector('#types');
 const navEggs = document.querySelector('#egg');
 const topBtn = document.querySelector('#backTop');
 const pokeType = document.querySelector('#pokeType');
+const detailCard = document.querySelector('#pokeCard');
 const pokeTable = document.querySelector('#pokeList');
 const topSpawn = document.querySelector('#topSpawn');
 const allPoke = document.querySelector('#allPoke');
@@ -52,7 +53,7 @@ const drawPokes = (list) => {
   });
 };
 
-const tableFunction = (event) => {
+const pokeList = (event) => {
   const item = event.target.closest('td');
   if (!item) return;
   const chosenItem = item.id;
@@ -84,16 +85,75 @@ const tableFunction = (event) => {
     highlight(item);
   }
 };
-listSection.addEventListener('mouseover', tableFunction);
-navTypes.addEventListener('click', tableFunction);
-navEggs.addEventListener('click', tableFunction);
+listSection.addEventListener('click', pokeList);
+navTypes.addEventListener('click', pokeList);
+navEggs.addEventListener('click', pokeList);
+
+const pokeCards = (event) => { 
+  const item = event.target.closest('td');
+  if (!item) return;
+  const chosenItem = item.id;
+  const pokeCard = () => {
+    detailCard.innerHTML = '';
+    const pokeList = filters.unfiltered();
+    const chosenPoke = pokeList.find((chosen) => chosen.name === chosenItem);
+    const nameContainer = document.createElement('a');
+    const pokepic = document.createElement('img');
+    pokepic.src = chosenPoke.img;
+    const idname = document.createElement('p');
+    idname.innerHTML = `#${chosenPoke.id} ${chosenPoke.name}`;
+    detailCard.appendChild(nameContainer);
+    nameContainer.appendChild(pokepic);
+    nameContainer.appendChild(idname);
+    const typeContainer = document.createElement('a');
+    const typeP = document.createElement('p');
+    typeP.innerHTML = 'Tipo: ';
+    typeContainer.appendChild(typeP);
+    chosenPoke.type.forEach((element) => {
+      const type = document.createElement('img');
+      type.setAttribute('id', element);
+      type.setAttribute('class', 'pokeType');
+      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
+      type.src = typeSrc.imgSrc;
+      typeContainer.appendChild(type);
+    });
+    const weakP = document.createElement('p');
+    weakP.innerHTML = 'Debil contra: ';
+    typeContainer.appendChild(weakP);
+    chosenPoke.weaknesses.forEach((weakness) => {
+      const weakType = document.createElement('img');
+      weakType.setAttribute('id', weakness);
+      weakType.setAttribute('class', 'pokeType');
+      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === weakness);
+      weakType.src = typeSrc.imgSrc;
+      typeContainer.appendChild(weakType);
+    });
+    detailCard.appendChild(typeContainer);
+    const evolContainer = document.createElement('a');
+    const prevEvol = chosenPoke.prev_evolution;
+    const nextEvol = chosenPoke.next_evolution;
+    if (!prevEvol) return;
+    else {
+      console.log('previous');    
+    }
+    if (!nextEvol) return;
+    else {
+      console.log('next');      
+    }
+  }
+  pokeCard(item);
+  detailCard.scrollIntoView({
+    behavior: 'smooth', inline: 'end',
+  });
+};
+listSection.addEventListener('click', pokeCards);
 
 const showAll = () => {
   introText.style.display = 'none';
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
   listSection.textContent = '';
-  const allPokemon = filters.show151();
+  const allPokemon = filters.unfiltered();
   print = drawPokes(allPokemon);
   pokeTable.scrollIntoView({
     behavior: 'smooth', inline: 'end',
