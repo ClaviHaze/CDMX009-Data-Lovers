@@ -4,6 +4,9 @@ import filters from './data.js';
 
 let print;
 let selected;
+let picName;
+let types;
+let evolution;
 const listSection = document.querySelector('#pokeList');
 const introText = document.querySelector('#introText');
 const navTypes = document.querySelector('#types');
@@ -25,28 +28,56 @@ const backHome = () => {
 };
 home.addEventListener('click', backHome);
 
-const drawPokes = (list) => {
+const drawPicName = (content, container) => {
+  const pokepic = document.createElement('img');
+  const idname = document.createElement('p');
+  pokepic.src = content.img;
+  pokepic.setAttribute('class', 'pokeImg');
+  idname.innerHTML = `#${content.id} ${content.name}`;
+  container.appendChild(pokepic);
+  container.appendChild(idname);
+}
+
+const drawType = (content, container) => {
+  content.forEach((element) => {
+    const type = document.createElement('img');
+    type.setAttribute('id', element);
+    type.setAttribute('class', 'pokeType');
+    const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
+    type.src = typeSrc.imgSrc;
+    container.appendChild(type);
+  });
+};
+
+const drawEvol = (content, container) => {
+  if(content.length === 1) {
+    const pokeEvol = document.createElement('p');
+    pokeEvol.innerHTML = content[0].name;
+    container.appendChild(pokeEvol);
+  } 
+  else {
+    const pokeEvol1 = document.createElement('p');
+    const pokeEvol2 = document.createElement('p');
+    const candy = document.createElement('img');
+    pokeEvol1.innerHTML = content[0].name;
+    pokeEvol2.innerHTML = content[1].name;
+    candy.src = 'images/candy.svg';
+    container.appendChild(pokeEvol1);
+    container.appendChild(candy);
+    container.appendChild(pokeEvol2);
+  };
+};
+
+const drawPokeList = (list) => {
   listSection.textContent = '';
   list.forEach((pokemon) => {
     const card = document.createElement('td');
-    const pokepic = document.createElement('img');
-    const idname = document.createElement('p');
-    pokepic.src = pokemon.img;
-    idname.innerHTML = `#${pokemon.id} ${pokemon.name}`;
     listSection.appendChild(card);
-    card.appendChild(pokepic);
-    card.appendChild(idname);
     card.setAttribute('id', pokemon.name);
     card.setAttribute('class', 'pokeBtn');
-    pokepic.setAttribute('class', 'pokeImg');
-    pokemon.type.forEach((element) => {
-      const type = document.createElement('img');
-      type.setAttribute('id', element);
-      type.setAttribute('class', 'pokeType');
-      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
-      type.src = typeSrc.imgSrc;
-      card.appendChild(type);
-    });
+    picName = drawPicName(pokemon, card);
+    types = drawType(pokemon.type, card);
+    return picName, types;
   });
   pokeTable.scrollIntoView({
     behavior: 'smooth', inline: 'end',
@@ -69,10 +100,10 @@ const pokeList = (event) => {
     listSection.appendChild(notice);
   } else if (icons.eggKm.includes(chosenItem)) {
     const filtered = filters.filterByEgg(chosenItem);
-    print = drawPokes(filtered);
+    print = drawPokeList(filtered);
   } else if (icons.typeName.includes(chosenItem)) {
     const filtered = filters.filterByType(chosenItem);
-    print = drawPokes(filtered);
+    print = drawPokeList(filtered);
   } else {
     const highlight = (node) => {
       if (selected) {
@@ -98,49 +129,43 @@ const pokeCards = (event) => {
     const pokeList = filters.unfiltered();
     const chosenPoke = pokeList.find((chosen) => chosen.name === chosenItem);
     const nameContainer = document.createElement('a');
-    const pokepic = document.createElement('img');
-    pokepic.src = chosenPoke.img;
-    const idname = document.createElement('p');
-    idname.innerHTML = `#${chosenPoke.id} ${chosenPoke.name}`;
     detailCard.appendChild(nameContainer);
-    nameContainer.appendChild(pokepic);
-    nameContainer.appendChild(idname);
+    picName = drawPicName(chosenPoke, nameContainer);
     const typeContainer = document.createElement('a');
     const typeP = document.createElement('p');
     typeP.innerHTML = 'Tipo: ';
     typeContainer.appendChild(typeP);
-    chosenPoke.type.forEach((element) => {
-      const type = document.createElement('img');
-      type.setAttribute('id', element);
-      type.setAttribute('class', 'pokeType');
-      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
-      type.src = typeSrc.imgSrc;
-      typeContainer.appendChild(type);
-    });
+    types = drawType(chosenPoke.type, typeContainer);
     const weakP = document.createElement('p');
     weakP.innerHTML = 'Debil contra: ';
     typeContainer.appendChild(weakP);
-    chosenPoke.weaknesses.forEach((weakness) => {
-      const weakType = document.createElement('img');
-      weakType.setAttribute('id', weakness);
-      weakType.setAttribute('class', 'pokeType');
-      const typeSrc = icons.typeSrc.find((srcType) => srcType.name === weakness);
-      weakType.src = typeSrc.imgSrc;
-      typeContainer.appendChild(weakType);
-    });
+    types = drawType(chosenPoke.weaknesses, typeContainer);
     detailCard.appendChild(typeContainer);
     const evolContainer = document.createElement('a');
+    detailCard.appendChild(evolContainer);
     const prevEvol = chosenPoke.prev_evolution;
     const nextEvol = chosenPoke.next_evolution;
-    if (!prevEvol) return;
-    else {
-      console.log('previous');    
+    let currentEvo;
+    if (prevEvol && nextEvol) {
+      console.log('prev and next');      
     }
-    if (!nextEvol) return;
-    else {
-      console.log('next');      
+    else if (prevEvol) {
+      if (prevEvol.length === 1) {
+        console.log('1 prev'); 
+      }
+      else {
+        console.log('2 prev');
+      }  
     }
-  }
+    else if (nextEvol) {
+      if (nextEvol.length === 1) {
+        console.log('1 next'); 
+      }
+      else {
+        console.log('2 next');
+      }      
+    };
+  };
   pokeCard(item);
   detailCard.scrollIntoView({
     behavior: 'smooth', inline: 'end',
@@ -154,7 +179,7 @@ const showAll = () => {
   navEggs.style.display = 'none';
   listSection.textContent = '';
   const allPokemon = filters.unfiltered();
-  print = drawPokes(allPokemon);
+  print = drawPokeList(allPokemon);
   pokeTable.scrollIntoView({
     behavior: 'smooth', inline: 'end',
   });
@@ -166,7 +191,7 @@ const showTopSpawns = () => {
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
   const showTopTen = filters.topSpawns();
-  print = drawPokes(showTopTen);
+  print = drawPokeList(showTopTen);
   return print;
 };
 topSpawn.addEventListener('click', showTopSpawns);
