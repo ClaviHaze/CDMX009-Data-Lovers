@@ -9,6 +9,17 @@ Para el desarrollo del proyecto nos dimos a la tarea de investigar, una vez eleg
 ## Historias de usuario.
 A continuación, mostraremos 3 historias de usuario que implementamos para el desarrolo de la interfaz.
 
+![src/images/PokeGoSpaceUserHist.png]
+
+## Descripción:
+Hacer una interfaz de caracter informativo donde el usuario pudiera interactuar, filtrar. Con diseño responsive para visualizarlo en múltiples dispositivos.
+
+## Desarrollo:
+Para el desarrollo del proyecto nos dimos a la tarea de investigar, una vez elegido el tema que en este caso fue la lista de 151 Pokémon de la región de Kanto, junto con sus respectivas estadísticas usadas en el juego Pokémon GO, llegamos a la conclusión de que lo juegan personas de casi todas las edades, desde niños hasta adultos de 36 años y es así como llegamos a las "historias de usuario" para saber las necesidades de los interesados en el juego.
+
+## Historias de usuario.
+A continuación, mostraremos 3 historias de usuario que implementamos para el desarrolo de la interfaz.
+
 !(src/images/PokeGoSpaceUserHist.png)
 
 Prototipo de baja fidelidad.
@@ -45,3 +56,4 @@ Ahora mostramos el terminado con botones de filtrado, tarjetas, botón de regres
 !(src/images/img06.jpeg)
 
 !(src/images/6a408ca3-c0e8-48a2-bff5-2767ebb23cea.jpeg)
+
