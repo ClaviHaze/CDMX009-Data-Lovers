@@ -2,11 +2,7 @@ import icons from './icons.js';
 
 import filters from './data.js';
 
-let print;
 let selected;
-let picName;
-let types;
-let evolution;
 const listSection = document.querySelector('#pokeList');
 const introText = document.querySelector('#introText');
 const navTypes = document.querySelector('#types');
@@ -22,6 +18,7 @@ const home = document.querySelector('#home');
 
 const backHome = () => {
   listSection.textContent = '';
+  detailCard.style.display = 'none';
   introText.style.display = 'grid';
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
@@ -36,43 +33,111 @@ const drawPicName = (content, container) => {
   idname.innerHTML = `#${content.id} ${content.name}`;
   container.appendChild(pokepic);
   container.appendChild(idname);
-}
+};
+
+const drawStats = (content, container) => {
+  const innerCont = document.createElement('tr');
+  const height = document.createElement('p');
+  const weight = document.createElement('p');
+  const egg = document.createElement('p');
+  const spawnChnc = document.createElement('p');
+  const avgSpwn = document.createElement('p');
+  const spwnTime = document.createElement('p');
+  const mult = document.createElement('p');
+  height.innerHTML = `Altura: ${content.height}`;
+  weight.innerHTML = `Peso: ${content.weight}`;
+  spawnChnc.innerHTML = `Posibilidad de Aparición: ${content.spawn_chance}`;
+  avgSpwn.innerHTML = `Aparicion Promedio: ${content.avg_spawns}`;
+  spwnTime.innerHTML = `Aparece durante ${content.spawn_time} min.`;
+  innerCont.appendChild(height);
+  innerCont.appendChild(weight);
+  innerCont.appendChild(spawnChnc);
+  innerCont.appendChild(avgSpwn);
+  innerCont.appendChild(spwnTime);
+  if (content.multipliers) {
+    if (content.multipliers.length === 1) {
+      mult.innerHTML = `${'Multiplicador: x'}${content.multipliers[0]}`;
+      innerCont.appendChild(mult);
+    } else if (content.multipliers.length === 2) {
+      mult.innerHTML = `${'Multiplicadores: x'}${content.multipliers[0]}, x${content.multipliers[1]}`;
+      innerCont.appendChild(mult);
+    }
+  }
+  if (content.egg === 'Not in Eggs') {
+    egg.innerHTML = 'Este Pokemón no eclosiona de ningún huevo';
+    innerCont.appendChild(egg);
+  } else {
+    egg.innerHTML = `Eclosiona de los huevos de ${content.egg}`;
+    innerCont.appendChild(egg);
+  }
+  container.appendChild(innerCont);
+};
+
+const evoTreePic = (content, innerCont) => {
+  const pokepic = document.createElement('img');
+  const idname = document.createElement('p');
+  const picAndName = document.createElement('a');
+  pokepic.setAttribute('class', 'evoPic');
+  picAndName.setAttribute('class', 'evoName');
+  const pokeList = filters.unfiltered();
+  const pokemon = pokeList.find((poke) => poke.name === content.name);
+  pokepic.src = pokemon.img;
+  idname.innerHTML = pokemon.name;
+  picAndName.appendChild(pokepic);
+  picAndName.appendChild(idname);
+  innerCont.appendChild(picAndName);
+};
 
 const drawType = (content, container) => {
+  const elementCont = document.createElement('tr');
+  elementCont.setAttribute('class', 'typeList');
   content.forEach((element) => {
     const type = document.createElement('img');
     type.setAttribute('id', element);
     type.setAttribute('class', 'pokeType');
     const typeSrc = icons.typeSrc.find((srcType) => srcType.name === element);
     type.src = typeSrc.imgSrc;
-    container.appendChild(type);
+    elementCont.appendChild(type);
   });
+  container.appendChild(elementCont);
 };
 
-const drawEvol = (content, container) => {
-  if(content.length === 1) {
-    const pokeEvol = document.createElement('p');
-    pokeEvol.innerHTML = content[0].name;
-    container.appendChild(pokeEvol);
-  } 
-  else {
-    const pokeEvol1 = document.createElement('p');
-    const pokeEvol2 = document.createElement('p');
-    const candy = document.createElement('img');
-    pokeEvol1.innerHTML = content[0].name;
-    pokeEvol2.innerHTML = content[1].name;
-    candy.src = 'images/candy.svg';
-    candy.setAttribute('class', 'candy');
-    container.appendChild(pokeEvol1);
-    container.appendChild(candy);
-    container.appendChild(pokeEvol2);
-  };
+const drawCandy = (content, container) => {
+  const candyPic = document.createElement('img');
+  const candyNum = document.createElement('small');
+  const picAndNum = document.createElement('a');
+  picAndNum.appendChild(candyPic);
+  picAndNum.appendChild(candyNum);
+  candyPic.src = 'images/candy.svg';
+  candyPic.setAttribute('class', 'candy');
+  picAndNum.setAttribute('class', 'candyCount');
+  const pokeList = filters.unfiltered();
+  const pokemon = pokeList.find((poke) => poke.name === content.name);
+  candyNum.innerHTML = pokemon.candy_count;
+  container.appendChild(picAndNum);
+};
+
+const drawEvol = (data1, data2, container) => {
+  if (data2 === '') {
+    evoTreePic(data1, container);
+  } else {
+    evoTreePic(data1, container);
+    drawCandy(data1, container);
+    evoTreePic(data2, container);
+  }
 };
 
 const drawCurrentEvo = (content, container) => {
-  const currentP = document.createElement('p');
-  currentP.innerHTML = content.name;
-  container.appendChild(currentP);
+  const pokepic = document.createElement('img');
+  const idname = document.createElement('p');
+  const picAndName = document.createElement('a');
+  pokepic.src = content.img;
+  pokepic.setAttribute('class', 'evoPic');
+  picAndName.setAttribute('class', 'evoName');
+  idname.innerHTML = content.name;
+  picAndName.appendChild(pokepic);
+  picAndName.appendChild(idname);
+  container.appendChild(picAndName);
   if (content.candy_count) {
     const picAndNum = document.createElement('a');
     const candyPic = document.createElement('img');
@@ -81,9 +146,10 @@ const drawCurrentEvo = (content, container) => {
     picAndNum.appendChild(candyNum);
     candyPic.src = 'images/candy.svg';
     candyPic.setAttribute('class', 'candy');
+    picAndNum.setAttribute('class', 'candyCount');
     candyNum.innerHTML = content.candy_count;
     container.appendChild(picAndNum);
-  };
+  }
 };
 
 const drawPokeList = (list) => {
@@ -93,9 +159,8 @@ const drawPokeList = (list) => {
     listSection.appendChild(card);
     card.setAttribute('id', pokemon.name);
     card.setAttribute('class', 'pokeBtn');
-    picName = drawPicName(pokemon, card);
-    types = drawType(pokemon.type, card);
-    return picName, types;
+    drawPicName(pokemon, card);
+    drawType(pokemon.type, card);
   });
   pokeTable.scrollIntoView({
     behavior: 'smooth', inline: 'end',
@@ -118,10 +183,10 @@ const pokeList = (event) => {
     listSection.appendChild(notice);
   } else if (icons.eggKm.includes(chosenItem)) {
     const filtered = filters.filterByEgg(chosenItem);
-    print = drawPokeList(filtered);
+    drawPokeList(filtered);
   } else if (icons.typeName.includes(chosenItem)) {
     const filtered = filters.filterByType(chosenItem);
-    print = drawPokeList(filtered);
+    drawPokeList(filtered);
   } else {
     const highlight = (node) => {
       if (selected) {
@@ -138,59 +203,78 @@ listSection.addEventListener('click', pokeList);
 navTypes.addEventListener('click', pokeList);
 navEggs.addEventListener('click', pokeList);
 
-const pokeCards = (event) => { 
+const pokeCards = (event) => {
   const item = event.target.closest('td');
   if (!item) return;
   const chosenItem = item.id;
   const pokeCard = () => {
     detailCard.innerHTML = '';
-    const pokeList = filters.unfiltered();
-    const chosenPoke = pokeList.find((chosen) => chosen.name === chosenItem);
-    const nameContainer = document.createElement('a');
+    const allList = filters.unfiltered();
+    const chosenPoke = allList.find((chosen) => chosen.name === chosenItem);
+    const nameContainer = document.createElement('tr');
+    nameContainer.setAttribute('class', 'container');
     detailCard.appendChild(nameContainer);
-    picName = drawPicName(chosenPoke, nameContainer);
-    const typeContainer = document.createElement('a');
+    drawPicName(chosenPoke, nameContainer);
+    const statsContainer = document.createElement('tr');
+    detailCard.appendChild(statsContainer);
+    statsContainer.setAttribute('class', 'container');
+    drawStats(chosenPoke, statsContainer);
+    const typeContainer = document.createElement('tr');
+    detailCard.appendChild(typeContainer);
+    typeContainer.setAttribute('class', 'container');
     const typeP = document.createElement('p');
     typeP.innerHTML = 'Tipo: ';
     typeContainer.appendChild(typeP);
-    types = drawType(chosenPoke.type, typeContainer);
+    drawType(chosenPoke.type, typeContainer);
     const weakP = document.createElement('p');
     weakP.innerHTML = 'Debil contra: ';
     typeContainer.appendChild(weakP);
-    types = drawType(chosenPoke.weaknesses, typeContainer);
-    detailCard.appendChild(typeContainer);
-    const evolContainer = document.createElement('a');
+    drawType(chosenPoke.weaknesses, typeContainer);
+    const evolContainer = document.createElement('tr');
     detailCard.appendChild(evolContainer);
+    evolContainer.setAttribute('class', 'container');
     const prevEvol = chosenPoke.prev_evolution;
     const nextEvol = chosenPoke.next_evolution;
-    let drawPrev;
-    let currentEvo;
-    let drawNext;
     if (prevEvol && nextEvol) {
-      drawPrev = drawEvol(prevEvol, evolContainer);
-      currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
-      drawNext = drawEvol(nextEvol, evolContainer);
-    }
-    else if (prevEvol) {
+      const prev1 = prevEvol[0];
+      const prev2 = '';
+      const next1 = nextEvol[0];
+      const next2 = '';
+      drawEvol(prev1, prev2, evolContainer);
+      drawCandy(prev1, evolContainer);
+      drawCurrentEvo(chosenPoke, evolContainer);
+      drawEvol(next1, next2, evolContainer);
+    } else if (prevEvol) {
       if (prevEvol.length === 1) {
-        drawPrev = drawEvol(prevEvol, evolContainer);
-        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
+        const prev1 = prevEvol[0];
+        const prev2 = '';
+        drawEvol(prev1, prev2, evolContainer);
+        drawCandy(prev1, evolContainer);
+        drawCurrentEvo(chosenPoke, evolContainer);
+      } else {
+        const prev1 = prevEvol[0];
+        const prev2 = prevEvol[1];
+        drawEvol(prev1, prev2, evolContainer);
+        drawCandy(prev2, evolContainer);
+        drawCurrentEvo(chosenPoke, evolContainer);
       }
-      else {
-        drawPrev = drawEvol(prevEvol, evolContainer);
-        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
-      }  
-    }
-    else if (nextEvol) {
+    } else if (nextEvol) {
       if (nextEvol.length === 1) {
-        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
-        drawNext = drawEvol(nextEvol, evolContainer);
+        const next1 = nextEvol[0];
+        const next2 = '';
+        drawCurrentEvo(chosenPoke, evolContainer);
+        drawEvol(next1, next2, evolContainer);
+      } else {
+        const next1 = nextEvol[0];
+        const next2 = nextEvol[1];
+        drawCurrentEvo(chosenPoke, evolContainer);
+        drawEvol(next1, next2, evolContainer);
       }
-      else {
-        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
-        drawNext = drawEvol(nextEvol, evolContainer);
-      }      
-    };
+    } else if (!prevEvol && !nextEvol) {
+      const notice = document.createElement('p');
+      notice.innerHTML = 'Este Pokemón no evoluciona';
+      evolContainer.appendChild(notice);
+    }
   };
   pokeCard(item);
   detailCard.scrollIntoView({
@@ -205,7 +289,7 @@ const showAll = () => {
   navEggs.style.display = 'none';
   listSection.textContent = '';
   const allPokemon = filters.unfiltered();
-  print = drawPokeList(allPokemon);
+  drawPokeList(allPokemon);
   pokeTable.scrollIntoView({
     behavior: 'smooth', inline: 'end',
   });
@@ -217,8 +301,7 @@ const showTopSpawns = () => {
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
   const showTopTen = filters.topSpawns();
-  print = drawPokeList(showTopTen);
-  return print;
+  drawPokeList(showTopTen);
 };
 topSpawn.addEventListener('click', showTopSpawns);
 
