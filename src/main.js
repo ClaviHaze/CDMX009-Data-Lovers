@@ -62,9 +62,27 @@ const drawEvol = (content, container) => {
     pokeEvol1.innerHTML = content[0].name;
     pokeEvol2.innerHTML = content[1].name;
     candy.src = 'images/candy.svg';
+    candy.setAttribute('class', 'candy');
     container.appendChild(pokeEvol1);
     container.appendChild(candy);
     container.appendChild(pokeEvol2);
+  };
+};
+
+const drawCurrentEvo = (content, container) => {
+  const currentP = document.createElement('p');
+  currentP.innerHTML = content.name;
+  container.appendChild(currentP);
+  if (content.candy_count) {
+    const picAndNum = document.createElement('a');
+    const candyPic = document.createElement('img');
+    const candyNum = document.createElement('small');
+    picAndNum.appendChild(candyPic);
+    picAndNum.appendChild(candyNum);
+    candyPic.src = 'images/candy.svg';
+    candyPic.setAttribute('class', 'candy');
+    candyNum.innerHTML = content.candy_count;
+    container.appendChild(picAndNum);
   };
 };
 
@@ -145,24 +163,32 @@ const pokeCards = (event) => {
     detailCard.appendChild(evolContainer);
     const prevEvol = chosenPoke.prev_evolution;
     const nextEvol = chosenPoke.next_evolution;
+    let drawPrev;
     let currentEvo;
+    let drawNext;
     if (prevEvol && nextEvol) {
-      console.log('prev and next');      
+      drawPrev = drawEvol(prevEvol, evolContainer);
+      currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
+      drawNext = drawEvol(nextEvol, evolContainer);
     }
     else if (prevEvol) {
       if (prevEvol.length === 1) {
-        console.log('1 prev'); 
+        drawPrev = drawEvol(prevEvol, evolContainer);
+        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
       }
       else {
-        console.log('2 prev');
+        drawPrev = drawEvol(prevEvol, evolContainer);
+        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
       }  
     }
     else if (nextEvol) {
       if (nextEvol.length === 1) {
-        console.log('1 next'); 
+        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
+        drawNext = drawEvol(nextEvol, evolContainer);
       }
       else {
-        console.log('2 next');
+        currentEvo = drawCurrentEvo(chosenPoke, evolContainer);
+        drawNext = drawEvol(nextEvol, evolContainer);
       }      
     };
   };

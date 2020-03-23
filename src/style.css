@@ -18,6 +18,9 @@ footer {
   cursor: pointer;
   background-color: #3B5441;
   border-radius: 18px;
+  transition: .4s;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
 }
 .main {
   background-color: #156471;
@@ -95,19 +98,19 @@ footer {
   border-radius: 18px;
   margin: 1em;
  /* transition: transform .2s;*/
-  transition: .4s;
-  transform-style: preserve-3d;
-  transition: all 0.8s ease;
+  
 }
 
 /*.pokeImg:hover{
   transform: scale(1.5)
 }*/
 
-.pokeImg:hover{
+.pokeBtn:hover{
   transform: rotateY(180deg);
 }
-
+.candy {
+width: 30px;
+}
 .pokeType{
 margin: 0.3em
 }

@@ -1,48 +1,42 @@
-# PokeGo Space
+# PokeGo Space - Data lovers
+
+## Descripción:
+
+Hacer una interfaz de caracter informativo donde el usuario pudiera interactuar, filtrar. Con diseño responsive para visualizarlo en múltiples dispositivos.
+
+## Desarrollo:
+
+Para el desarrollo del proyecto nos dimos a la tarea de investigar, una vez elegido el tema que en este caso fue la lista de 151 Pokémon de la región de Kanto, junto con sus respectivas estadísticas usadas en el juego Pokémon GO, llegamos a la conclusión de que lo juegan personas de casi todas las edades, desde niños hasta adultos de 36 años y es así como llegamos a las "historias de usuario" para saber las necesidades de los interesados en el juego.
+
+## Historias de usuario.
+
+A continuación, mostraremos 3 historias de usuario que implementamos para el desarrolo de la interfaz.  
 
 
-## Objetivos de aprendizaje
+![img1](src/images/PokeGoSpaceUserHist.png) 
 
-### UX
+## Prototipo de baja fidelidad.
 
-- [ ] Diseñar la aplicación pensando y entendiendo al usuario.
-- [ ] Crear prototipos para obtener _feedback_ e iterar.
-- [ ] Aplicar los principios de diseño visual (contraste, alineación, jerarquía).
-- [ ] Planear y ejecutar _tests_ de usabilidad.
+Aquí se hicieron algunas ideas del diseño de interfaz para filtrado y para mostrar ficha técnica.
 
-### HTML y CSS
+![img2](src/images/img01.jpeg)
 
-- [ ] Entender y reconocer por qué es importante el HTML semántico.
-- [ ] Identificar y entender tipos de selectores en CSS.
-- [ ] Entender como funciona `flexbox` en CSS.
-- [ ] Construir tu aplicación respetando el diseño planeado (maquetación).
+![img2](src/images/img02.jpeg)
 
-### DOM
+![img3](src/images/img03.jpeg)
 
-- [ ] Entender y reconocer los selectores del DOM (querySelector | querySelectorAll).
-- [ ] Manejar eventos del DOM. (addEventListener)
-- [ ] Manipular dinámicamente el DOM. (createElement, appendchild, innerHTML, value)
+## Prototipo de alta fidelidad.
 
-### Javascript
+Se hicieron muchas modificaciones adecuando botones de filtro para un mejor manejo para el usuario.
 
-- [ ] Manipular arrays (`filter` | `map` | `sort` | `reduce`).
-- [ ] Manipular objects (key | value).
-- [ ] Entender el uso de condicionales (`if-else` | `switch`).
-- [ ] Entender el uso de bucles (`for` | `forEach`).
-- [ ] Entender la diferencia entre expression y statements.
-- [ ] Utilizar funciones (parámetros | argumentos | valor de retorno).
-- [ ] Entender la diferencia entre tipos de datos atómicos y estructurados.
-- [ ] Utilizar ES Modules (`import` | `export`).
+Diseño que muestra los 151 Pokémones
 
-### Pruebas Unitarias (_testing_)
-- [ ] Testear funciones (funciones puras).
+![img4](src/images/Prototipo pantalla 1.png)
 
-### Git y GitHub
-- [ ] Ejecutar comandos de git (`add` | `commit` | `pull` | `status` | `push`).
-- [ ] Utilizar los repositorios de GitHub (`clone` | `fork` | gh-pages).
-- [ ] Colaborar en Github (pull requests).
+Diseño de ficha técnica
 
-### Buenas prácticas de desarrollo
-- [ ] Organizar y dividir el código en módulos (Modularización).
-- [ ] Utilizar identificadores descriptivos (Nomenclatura | Semántica).
-- [ ] Utilizar linter para seguir buenas prácticas (ESLINT).
+![img5](src/images/Prototipo Pantalla 2.png)
+
+Se fueron implementando más cambios en el diseño conforme al desarrollo y así es como llegamos al resultado final que se muestra a continuación...
+
+## 
