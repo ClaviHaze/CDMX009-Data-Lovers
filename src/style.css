@@ -112,6 +112,7 @@ footer {
   transform: rotateY(180deg);
 }
 .detailCard {
+  display: table;
   margin: auto;
   background-color: #23482c;
   border-radius: 18px;

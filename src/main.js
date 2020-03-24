@@ -208,6 +208,7 @@ const pokeCards = (event) => {
   if (!item) return;
   const chosenItem = item.id;
   const pokeCard = () => {
+    detailCard.style.display = 'table';
     detailCard.innerHTML = '';
     const allList = filters.unfiltered();
     const chosenPoke = allList.find((chosen) => chosen.name === chosenItem);
@@ -284,6 +285,7 @@ const pokeCards = (event) => {
 listSection.addEventListener('click', pokeCards);
 
 const showAll = () => {
+  detailCard.style.display = 'none';
   introText.style.display = 'none';
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
@@ -297,6 +299,7 @@ const showAll = () => {
 allPoke.addEventListener('click', showAll);
 
 const showTopSpawns = () => {
+  detailCard.style.display = 'none';
   introText.style.display = 'none';
   navTypes.style.display = 'none';
   navEggs.style.display = 'none';
@@ -306,6 +309,7 @@ const showTopSpawns = () => {
 topSpawn.addEventListener('click', showTopSpawns);
 
 const showTypeList = () => {
+  detailCard.style.display = 'none';
   introText.style.display = 'none';
   navTypes.style.display = 'flex';
   navEggs.style.display = 'none';
@@ -326,6 +330,7 @@ const showTypeList = () => {
 pokeType.addEventListener('click', showTypeList);
 
 const showEggList = () => {
+  detailCard.style.display = 'none';
   introText.style.display = 'none';
   navTypes.style.display = 'none';
   navEggs.style.display = 'flex';
