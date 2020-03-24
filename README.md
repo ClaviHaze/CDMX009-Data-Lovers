@@ -7,7 +7,7 @@ Hacer una interfaz de caracter informativo donde el usuario pudiera interactuar,
 Para el desarrollo del proyecto nos dimos a la 📓 tarea de investigar, una vez elegido el tema que en este caso fue la lista de 151 Pokémon de la región de Kanto, junto con sus respectivas 📊estadísticas usadas en el juego Pokémon GO, llegamos a la conclusión de que lo juegan personas de casi todas las edades, desde niños 👦 hasta adultos 🙎 👩 de 36 años y es así como llegamos a las "historias de usuario" para saber las necesidades de los interesados en el juego.
 
 ## 🤓 Historias de usuario.
-A continuación, mostraremos 3 historias de usuario que implementamos para el desarrolo de la interfaz. ⤵️
+A continuación, mostraremos 3 historias de usuario que implementamos para el desarrolo de la interfaz. ⤵️ 
 
 ![ ](src/images/PokeGoSpaceUserHist.png) 
 
