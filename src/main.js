@@ -172,6 +172,7 @@ const pokeList = (event) => {
   if (!item) return;
   const chosenItem = item.id;
   introText.style.display = 'none';
+  detailCard.style.display = 'none';
   if (chosenItem === 'Dark') {
     listSection.textContent = '';
     const notice = document.createElement('p');
