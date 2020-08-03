@@ -171,6 +171,7 @@ const pokeList = (event) => {
   const item = event.target.closest('td');
   if (!item) return;
   const chosenItem = item.id;
+  detailCard.style.display = 'none';
   introText.style.display = 'none';
   detailCard.style.display = 'none';
   if (chosenItem === 'Dark') {
