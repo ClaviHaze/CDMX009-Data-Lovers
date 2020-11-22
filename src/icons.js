@@ -39,6 +39,11 @@ const icons = {
     'images/Tag-Steel.svg',
     'images/Tag-Water.svg',
   ],
+  eeveeSrc: [
+    'images/Tag-Rainer.svg',
+    'images/Tag-Sparky.svg',
+    'images/Tag-Pyro.svg',
+  ],
   typeSrc: [
     { name: 'Bug', imgSrc: 'images/Tag-Bug.svg' },
     { name: 'Dark', imgSrc: 'images/Tag-Dark.svg' },

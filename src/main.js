@@ -26,51 +26,40 @@ const backHome = () => {
 home.addEventListener('click', backHome);
 
 const drawPicName = (content, container) => {
-  const pokepic = document.createElement('img');
-  const idname = document.createElement('p');
-  pokepic.src = content.img;
-  pokepic.setAttribute('class', 'pokeImg');
-  idname.innerHTML = `#${content.id} ${content.name}`;
-  container.appendChild(pokepic);
-  container.appendChild(idname);
+  const picNameTemplate = `
+    <img src='${content.img}' class='pokeImg'>
+    <p> #${content.id} ${content.name} </p>
+  `;
+  container.innerHTML = picNameTemplate;
 };
 
 const drawStats = (content, container) => {
-  const innerCont = document.createElement('tr');
-  const height = document.createElement('p');
-  const weight = document.createElement('p');
-  const egg = document.createElement('p');
-  const spawnChnc = document.createElement('p');
-  const avgSpwn = document.createElement('p');
-  const spwnTime = document.createElement('p');
-  const mult = document.createElement('p');
-  height.innerHTML = `Altura: ${content.height}`;
-  weight.innerHTML = `Peso: ${content.weight}`;
-  spawnChnc.innerHTML = `Posibilidad de Aparición: ${content.spawn_chance}`;
-  avgSpwn.innerHTML = `Aparicion Promedio: ${content.avg_spawns}`;
-  spwnTime.innerHTML = `Aparece durante ${content.spawn_time} min.`;
-  innerCont.appendChild(height);
-  innerCont.appendChild(weight);
-  innerCont.appendChild(spawnChnc);
-  innerCont.appendChild(avgSpwn);
-  innerCont.appendChild(spwnTime);
+  const statsTemplate = `
+    <div>
+      <p>Altura: ${content.height}</p>
+      <p>Peso: ${content.weight}</p>
+      <p>Posibilidad de Aparición: ${content.spawn_chance}</p>
+      <p>Aparicion Promedio: ${content.avg_spawns}</p>
+      <p>Aparece durante ${content.spawn_time} min.</p>
+      <p id="multiplier"></p>
+      <p id="eggHatch"></p>
+    </div>
+  `;
+  container.innerHTML = statsTemplate;
+  const multiplier = document.getElementById('multiplier');
   if (content.multipliers) {
     if (content.multipliers.length === 1) {
-      mult.innerHTML = `${'Multiplicador: x'}${content.multipliers[0]}`;
-      innerCont.appendChild(mult);
+      multiplier.innerHTML = `${'Multiplicador: x'}${content.multipliers[0]}`;
     } else if (content.multipliers.length === 2) {
-      mult.innerHTML = `${'Multiplicadores: x'}${content.multipliers[0]}, x${content.multipliers[1]}`;
-      innerCont.appendChild(mult);
+      multiplier.innerHTML = `${'Multiplicadores: x'}${content.multipliers[0]}, x${content.multipliers[1]}`;
     }
-  }
+  };
+  const eggHatch = document.getElementById('eggHatch');
   if (content.egg === 'Not in Eggs') {
-    egg.innerHTML = 'Este Pokemón no eclosiona de ningún huevo';
-    innerCont.appendChild(egg);
+    eggHatch.innerHTML = 'Este Pokemón no eclosiona de ningún huevo';
   } else {
-    egg.innerHTML = `Eclosiona de los huevos de ${content.egg}`;
-    innerCont.appendChild(egg);
-  }
-  container.appendChild(innerCont);
+    eggHatch.innerHTML = `Eclosiona de los huevos de ${content.egg}`;
+  };
 };
 
 const evoTreePic = (content, innerCont) => {
@@ -238,7 +227,11 @@ const pokeCards = (event) => {
     evolContainer.setAttribute('class', 'container');
     const prevEvol = chosenPoke.prev_evolution;
     const nextEvol = chosenPoke.next_evolution;
-    if (prevEvol && nextEvol) {
+    const eevolution = filters.eeveelutionCard;
+    if (chosenPoke.name === 'Eevee') {
+      evolContainer.setAttribute('class', 'container eeveelution');
+      evolContainer.innerHTML = eevolution;
+    } else if (prevEvol && nextEvol) {
       const prev1 = prevEvol[0];
       const prev2 = '';
       const next1 = nextEvol[0];
@@ -279,6 +272,7 @@ const pokeCards = (event) => {
       evolContainer.appendChild(notice);
     }
   };
+
   pokeCard(item);
   detailCard.scrollIntoView({
     behavior: 'smooth', inline: 'end',

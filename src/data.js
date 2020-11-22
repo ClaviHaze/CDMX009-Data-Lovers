@@ -34,6 +34,35 @@ const filters = {
     const pokeObject = pokemons;
     return pokeObject;
   },
+  eeveelutionCard: `
+  <tr class="container eeveelution">
+    <a class="evoName">
+      <img src="https://www.serebii.net/pokemongo/pokemon/133.png" class="evoPic">
+      <p class="eeveelutionEevee">Eevee</p>
+    </a>
+    <a class="candyCount">
+      <img src="images/candy.svg" class="candy">
+      <small>25</small>
+    </a>
+    <p class="eeveelutionInfo">Eevee evoluciona aleatoriamente pero se puede elegir <u>UNA VEZ</u> su evolución al cambiar su nombre a los siguientes:</p>
+    <div class="container">
+      <a class="evoName">
+        <img src="images/Tag-Rainer.svg">
+        <img class="evoPic" src="https://www.serebii.net/pokemongo/pokemon/134.png">
+        <p>Vaporeon</p>
+      </a>
+      <a class="evoName">
+        <img src="images/Tag-Sparky.svg">
+        <img class="evoPic" src="https://www.serebii.net/pokemongo/pokemon/135.png">
+        <p>Jolteon</p>
+      </a>
+      <a class="evoName">
+        <img src="images/Tag-Pyro.svg">
+        <img class="evoPic" src="https://www.serebii.net/pokemongo/pokemon/136.png">
+      <p>Flareon</p>
+      </a>
+    </div>
+  `,
 };
 
 export default filters;
